@@ -1,20 +1,32 @@
 import json
-from scholarly import scholarly
+from scholarly import scholarly, ProxyGenerator
 
-# Retrieve the author's data, fill-in, and print
-# Get an iterator for the author results
-search_query = scholarly.search_pubs('supply chain')
+# Set the proxy generator
+# pg = ProxyGenerator()
+# success = pg.FreeProxies()
+# scholarly.use_proxy(pg)
+
+
+query = 'supply chain'
+start_year = 2019
+# end_year = 2020
+
+
+search_query = scholarly.search_pubs(f'allintitle: {query}', patents=False, citations=True, year_low=start_year)
+
+search_query.total_results
+
 # Retrieve the first result from the iterator
-first_author_result = next(search_query)
-scholarly.pprint(first_author_result)
+first_result = next(search_query)
+scholarly.pprint(first_result)
 
-# Retrieve all the details for the author
-author = scholarly.fill(first_author_result)
-scholarly.pprint(author)
+# Retrieve all the details for the pbublication
+publications = scholarly.fill(first_result)
+scholarly.pprint(publications)
 
 # Save the author dictionary into a JSON file
-with open('author.json', 'w') as json_file:
-    json.dump(author, json_file)
+with open('publications.json', 'w') as json_file:
+    json.dump(publications, json_file)
 
 # Take a closer look at the first publication
 # first_publication = author['publications'][0]
