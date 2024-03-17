@@ -1,5 +1,7 @@
 from itertools import combinations
 import math
+import csv
+
 
 def generate_combinations(query, min_words=1):
     words = query.split()
@@ -11,7 +13,7 @@ def generate_combinations(query, min_words=1):
 
 
 if __name__ == "__main__":
-    query = "python js html css react"
+    query = "AI-Driven Adaptive Emotional Intelligence Enhancement in Personalized Learning Environments"
     n = len(query.split())
     k = n
     
@@ -19,6 +21,12 @@ if __name__ == "__main__":
     print(len(words))
     print(words)
     
+    
+# Save the words in a CSV file
+    with open('combinations.csv', 'w', newline='') as file:
+      writer = csv.writer(file)
+      for word in words:
+        writer.writerow([word])
     # n, k = 3,3
     s = 0
     for i in range(1, n+1):
